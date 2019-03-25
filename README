@@ -13,7 +13,7 @@ DESCRIPTION:
 	 
 This simple program is written in Julia. It builds upon the cluster self-energy to compute the superfluid stiffness. The superfluid stiffness can be computed  
 by periodizing the cluster Green's function built from the cluster self-energy, by periodizing the cumulant of the cluster Green's function or by tracing
-over the cluster Green's function. For all the periodization schemes, both the superfluid stiffness in the pur superconducting state and the mixed
+over the cluster Green's function. For all the periodization schemes, both the superfluid stiffness in the pure superconducting state and the mixed
 superconducting-antiferromagnetic state can be computed.
 	      
 The data fed in consists in the cluster self-energy defined over a given Matsubara frequency grid and a column-separated file containing the chemical doping,
