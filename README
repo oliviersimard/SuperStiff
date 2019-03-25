@@ -45,13 +45,21 @@ RUN:
 To perform the superfluid stiffness calculations, see the pdf file Documentation.pdf in the "doc/LatexDocumentation" folder and the
 examples available in the "examples" folder. A README file is associated to every example.
 			     
-#########
+#############
 EXAMPLES:
 				        
 Examples of computations of the superfluid stiffness are shown in the "examples" directory. Details are given in
 the README files of each example folder. Some heavier examples reproduce the results shown in my thesis and the results 
 that will be published. The other results, i.e. obtained with other parameters of the Hubbard model, are produced in the exact 
 same fashion, only changing the appropriate parameters.
+
+#############
+Miscellaneous:
+
+In a Julia terminal, if you have established the program SuperStiff to be the global scope by typing "using SuperStiff", you can access the
+important information defining each of the functions in the modules by typing, for example:
+> ?SuperStiff.PeriodizeSC.epsilonk
+
 #########
 
 All the program aspects, benchmarks and results in the master's thesis have been tested on a Linux machine, whether it is a remote supercomputer server
