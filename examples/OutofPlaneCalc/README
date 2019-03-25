@@ -1,0 +1,25 @@
+############
+Example
+############
+
+
+This example is devised to show an example computing the superfluid stiffness perpendicular to the copper-oxyde plane, with periodizing the Green's function and the cumulant. 
+The mixed state case (AF+SC) is shown. The two important input parameters are the self-energy array (vector of matrices) and the input file containing 
+the dSC and AF order parameter amplitudes, the chemical potential and the density of particles. For the program to properly run, the chemical potential, the 
+particle density and the order parameter amplitudes have to be laid out in a column-wise separated file.
+
+The input items:
+
+- Loop_COEX.dat (chemical potential, order parameter amplitudes)
+- SEvec_b500_SC_AFM/ (contains the self-energy arrays for the different dopings)
+
+The input items must be put in the same folder as the params.json and the main *.jl file.
+
+The output items, depending on the subfolders:
+
+- stiffness_b500_w_2000_coex_int_K_per_tperp_U8.dat (file containing, from left to right, the chemical potential, the particle density and the superfluid stiffness using Green's function periodization)
+- stiffness_b500_w_2000_coex_int_K_per_cum_tperp_U8.dat (file containing, from left to right, the chemical potential, the particle density and the superfluid stiffness using cumulant periodization)
+
+The results are written during runtime. Anyone can kill the program by pressing CTRL+c (Linux), or any corresponding key.
+
+For further informations and explainations, see Documentation.pdf in the "doc/LatexDocumentation" folder.

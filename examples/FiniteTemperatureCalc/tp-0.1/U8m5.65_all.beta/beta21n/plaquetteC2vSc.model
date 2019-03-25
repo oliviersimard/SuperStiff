@@ -1,0 +1,105 @@
+#comments with '#'
+sites
+(0,0,0)
+(1,0,0)
+(1,1,0)
+(0,1,0)
+
+symmetry_generator
+#choose the representation
+2 1 4 3
+4 3 2 1
+
+superlattice   
+(2,0,0)
+(0,2,0)
+
+lattice
+(1,0,0)
+(0,1,0)
+
+basis
+(1,0,0)
+(0,1,0)
+(0,0,1)
+
+one-body
+t   (1,0,0)  -1   
+t   (0,1,0)  -1
+tp  (1,1,0)  -1
+tp  (1,-1,0) -1
+tpp (2,0,0)  -1
+tpp (0,2,0)  -1
+*
+
+interaction
+U  (0,0,0)  1 
+*
+
+green_function_symmetries
+#put as much as you can to constrain your problem:
+1 4 3 2 : +-   # Reflection relative to a diagonal (change of sign of the Gorkov function)
+3 2 1 4 : +-   # Reflection relative to another diagonal (change of sign of the Gorkov function)
+2 3 4 1 : +-   # 90 degrees rotation (change of sign of the Gorkov function)
+5 6 7 8 1 2 3 4 : ++ # Time reversal symmetry (spin up become spin down)
+8 5 6 7 4 1 2 3 : +- # Time reversal symmetry (spin up become spin down) under a 90 degrees rotation (change of sign of the Gorkov function)
+2 1 4 3 : ++  # Left-right reflection (absent with AFM)
+4 3 2 1 : ++  # Bottom-up reflection (absent with AFM)
+################ Examples of other symmetries for the green function
+#2 3 4 1 : +-   # 90 degrees rotation (change of sign of the Gorkov function)
+#2 1 4 3 : ++  # Left-right reflection (absent with AFM)
+#4 3 2 1 : ++  # Bottom-up reflection (absent with AFM) 
+#1 2 3 4 : +-  # This symmetry kill the off diagonal elements of the nambu Green function (because it is the identity and there is a minus sign for the Gorkov function)
+#1 2 3 4 5 6 7 8: +-  # This symmetry kill the off diagonal elements of the nambu Green function (because it is the identity and there is a minus sign for the Gorkov function)
+##5 6 7 8 1 2 3 4 : ++ # Time reversal symmetry (spin up become spin down)
+
+
+###################################
+
+susceptibility
+Sz Sz
+
+#rotation
+#theta1   0:1
+#theta1   4:5
+
+#constraint
+#MIN   A1_12   theta1
+
+#green_functions
+#A1_11
+#A1_12
+#A1_22
+#B1
+#B2
+#phi1
+#phi2
+
+green_functions
+G1
+G2
+G3
+G4
+
+
+green_matrix
+ G1   0    0    0    0    0    0    0   
+ 0    G2   0    0    0    G3   0    0   
+ 0    0    G2   0    0    0   -G3   0   
+ 0    0    0    G4   0    0    0    0   
+ 0    0    0    0   -G1*  0    0    0   
+ 0    G3   0    0    0   -G2*  0    0   
+ 0    0   -G3   0    0    0   -G2*  0   
+ 0    0    0    0    0    0    0   -G4* 
+
+
+#green_matrix
+#A1_11    A1_12    0    0     0        0        0    0  
+#A1_12    A1_22    0    0     0        0        0    0
+#0        0        B1   0     0        0        0    phi1
+#0        0        0    B2    0        0        phi2 0
+#0        0        0    0     -A1_22*  -A1_12*  0    0  
+#0        0        0    0     -A1_12*  -A1_11*  0    0
+#0        0        0    phi2  0        0        -B2* 0
+#0        0        phi1 0     0        0        0    -B1*
+

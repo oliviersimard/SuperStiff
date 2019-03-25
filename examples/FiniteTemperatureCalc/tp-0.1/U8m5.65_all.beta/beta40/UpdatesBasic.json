@@ -1,0 +1,20 @@
+{
+    "Flip" : {
+        "Moves" : [
+            [ 1.0, "R1_Up" , "R1_Down" , "R2_Up" , "R2_Down"], 
+            [ 1.0, "R1_Down" , "R1_Up" , "R2_Down" , "R2_Up"]], 
+        "Weight" : 1.0
+    }, 
+    "InsertEraseCSQ" : {
+        "Moves" : [
+            [ 1.0, "R0_Up"], 
+            [ 1.0, "R0_Down"], 
+            [ 1.0, "R2_Up"], 
+            [ 1.0, "R3_Down"], 
+            [ 1.0, "R2_Down"], 
+            [ 1.0, "R1_Down"], 
+            [ 1.0, "R1_Up"], 
+            [ 1.0, "R3_Up"]], 
+        "Weight" : 1.0
+    }
+}

@@ -1,0 +1,290 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% Original author:
+% Olivier Simard
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{xcolor} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{placeins}
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{hyperref}
+
+\hypersetup{pdftex, colorlinks=true, linkcolor=Red, citecolor=blue, urlcolor=blue}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+
+%----------------------------------------------------------------------------------------
+%	NAME AND DOC SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\Title}{Documentation} 
+\newcommand{\Doc}{SuperStiff}
+\newcommand{\AuthorName}{Olivier Simard}
+\newcommand{\InstitutionName}{Université de Sherbrooke} 
+
+%----------------------------------------------------------------------------------------
+%	TITLE LAYOUT
+%----------------------------------------------------------------------------------------
+\title{
+\textmd{\textsc{SuperStiff} documentation}\\
+\vspace{6in}
+%\textmd{\AuthorName}
+\vspace{1cm}
+}
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\AuthorName} % Top left header
+\chead{\textsc{\Doc}\ : \Title} % Top center head
+\rhead{\InstitutionName} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstdefinelanguage{Julia}{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while,begin},%
+   sensitive=true,%
+   %alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\lstset{%
+    language         = Julia,
+    basicstyle       = \ttfamily,
+    keywordstyle     = \bfseries\color{blue},
+    stringstyle      = \color{magenta},
+    commentstyle     = \color{ForestGreen},
+    showstringspaces = false,
+    backgroundcolor={\color{lightgray}},
+  	breakatwhitespace=true,
+  	breaklines=true,
+  	captionpos=b,
+  	frame=tb,
+  	resetmargins=true,
+  	sensitive=true,
+  	stepnumber=1,
+  	tabsize=4,
+  	%upquote=true
+}
+
+% Creates a new command to include a julia script, the first parameter is the filename of the script (with .jl), the second parameter is the caption
+\newcommand{\juliascript}[4]{
+\begin{itemize}
+%\item[]\lstinputlisting[caption=#2,firstline=#3,lastline=#4,label=#1]{#1.py}
+\item[]\lstinputlisting[caption=#2,firstline=#3,lastline=#4,label=#1]{../../examples/InplaneCalc/GreenPer/params.json}
+\end{itemize}
+}
+
+\newcommand{\juliascriptFT}[4]{
+\begin{itemize}
+%\item[]\lstinputlisting[caption=#2,firstline=#3,lastline=#4,label=#1]{#1.py}
+\item[]\lstinputlisting[caption=#2,firstline=#3,lastline=#4,label=#1]{../../examples/FiniteTemperatureCalc/FiniteTSuperstiff.jl}
+\end{itemize}
+}
+
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\maketitle
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\newpage
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	CONTENT
+%----------------------------------------------------------------------------------------
+
+\section{Outlook}
+\label{sec:outlook}
+
+This documentation is addressed to persons that intend to compute the superfluid stiffness using Cluster Dynamical Mean Field Theory~\cite{charlebois_these}. The main programs have been tailored for the usage of $8\times 8$ cluster self-energies $\Sigma_c$, that is self-energies obtained solving a $2\times 2$ cluster impurity. It can be straightforwardly adapted for bigger clusters.\\
+
+
+In this document, the following aspects are set out:
+\begin{itemize}
+\item The main tasks \textsc{SuperStiff} accomplishes
+\item The structure of the program \textsc{SuperStiff}
+\item The main functions of the different modules
+\end{itemize}
+
+I will also follow through different examples given in the folder \path{examples}. Some of the examples are results already shown in my master's thesis~\cite{simard_master}. If you still haven't read the main \path{README} file stored in the folder \path{SuperStiff}, take a look! This document gives complementary informations for anyone that wants to dig in deeper.\\
+
+The calculations can be made on a personal laptop since the program is not too time-consuming. This Julia program has only been benchmarked for Linux operating systems. Nervertheless, the installations of Julia and the different packages are quite easy and do not depend on the operating system as far as I can tell\footnote{Julia programming language is well supported for any operating systems (MacOs, Windows or Linux)}. 
+
+\section{Purpose of the program}
+\label{sec:Purpose}
+
+The main purpose of \textsc{SuperStiff} is to compute the superfluid stiffness in the layered cuprates. It is a wrapper over a CDMFT procedure that would provide converged self-energies. This program computes the superfluid stiffness along all the principal axes of the unit-cell. The current vertex corrections are neglected. 
+
+It computes the superfluid stiffness using any of the periodization schemes available, that is, periodizing the Green's function (\textit{pér. G}), periodizing the cumulant of the Green's function (\textit{pér. M}), or tracing over the cluster Green's function (\textit{tr.}) (see section 4.2.3 of Ref.\cite{simard_master}). It does so if ones has a self-energy that has converged in the pure state or in the mixed state AF+SC.
+
+\section{Structure of the program}
+\label{sec:structure_of_program}
+
+The structure of the program is glanced over in this section, setting out the necessary informations to provide in order for the program to successfully run. The program uses the Julia programming language. Versions of the code are available in both Python and C++, but these versions have had poor maintenance and are prone to bugs.
+
+The program is composed of three different modules stored in folder \path{src}, three different main files stored in the folder \path{examples} and one input file named \path{params.json}. The objective here is to explain each and every entry in the input file. The content of the \path{params.json} file is exposed in listing \ref{params.json}. It can be helpful to read first off the appendices M and N of Ref.\cite{simard_master}.
+
+\clearpage
+
+\subsection{Zero temperature calculation}
+\label{zero_T_calculation}
+
+For zero temperature calculations of the superfluid stiffness, the main program \path{OutofPlaneSuperStiff.jl} can be used to compute the $c$-axis current-current correlation function or \path{InplaneSuperStiff.jl} can be used to compute the $a$- or $b$-axis current-current correlation function. Each of the these main programs needs the input file \path{params.json} to specify important parameters. The content of the \path{params.json} file is descibed below.
+
+\juliascript{params.json}{Content of params.json}{1}{17}
+
+The first three parameters stand for three nearest-neighbor tight-binding hopping terms: $t$ depicts the nearest-neighbor hopping term, $t^{\prime}$ the second nearest-neighbor hopping term and $t^{\prime\prime}$ the third nearest-neighbor hopping term. The example given is for YBCO. The other input parameters are 
+
+
+\begin{description}
+\item["inplane axis":] specifies the axis along which the superfluid stiffness is to be computed. Only the following set of strings is acceptable: $\{\text{"xx"},\text{"yy"}\}$. This parameter doesn't matter if the $c$-axis superfluid stiffness is computed ($zz$).
+%
+\item["path\_to\_files":] specifies the file path containing the cluster self-energies resolved in Matsubara frequencies. The file path MUST start by either "NOCOEX" in the case of pure SC calculations or "COEX" in the case of mixed AF+SC calculations.
+%
+\item["data\_loop":] specifies the file path containing the chemical potential, the particle density  and the order parameter amplitude(s). The number of self-energy binary files (*.npy) has to be the same as the number of lines in the \path{NOCOEX/U8/Loop_NOCOEX.dat} file and the integer specifying the line has to correspond to the one of the self-energy binary plus 2 (because Python and C++ starts with number $0$ and there is a header). For example, the binary file named \path{NOCOEX/U8/SEvec_b500_SC/SEvec_b500_SC138.npy} corresponds to line 140 in the file \path{NOCOEX/U8/Loop_NOCOEX.dat}.
+%
+\item["AFM\_SC\_NOCOEX":] this field takes in the binary set of values $\{0,1\}$. For example, when $0$ is entered, the formula Eq.(5.31) or Eq.(5.37) of Ref.\cite{simard_master} are used with the CDMFT self-energy converged in the mixed state in the case \path{OutofPlaneSuperStiff.jl} is launched. The formula Eq.(5.31) is used if \textbf{"Periodization"} is set to $0$ and Eq.(5.37) if $1$ is provided instead. If the file \path{InplaneSuperStiff.jl} were used instead and \textbf{"AFM\_SC\_NOCOEX"} were set to 0, it would have called Eq.(5.30) having set \textbf{"Periodization"} to $0$ or Eq.(5.36) having set \textbf{"Periodization"} to 1. If otherwise \textbf{"AFM\_SC\_NOCOEX"} is set to $1$, both the input fields \textbf{"path\_to\_files"} and \textbf{"data\_loop"} have to start with NOCOEX in order to use the superfluid formulae developped in the regime of AF+SC coexistence with CDMFT data converged in the pure SC state. Most of the time, \textbf{"AFM\_SC\_NOCOEX"} is set to $0$.
+%
+\item["Print\_mu\_dop":] this field is only relevant when debugging and takes in $\{0,1\}$. This entry is useful when \textsc{SuperStiff} is used in conjonction with other programs that are kept private. Always set to $0$. Prints out some information and the program might not work if set to $1$.
+%
+\item["pattern":] specifies the pattern of the binary files contained in the path \textbf{"path\_to\_files"}. It can be whatever string value, as long as it is labelled with an integer as mentionned previously and it is a binary file.
+%
+\item["beta":] gives the fictitious temperature that is used to sum over the fermionic Matsubara frequencies. The value of \textbf{"beta"} can be changed, but it is preferable to keep its value to 500. The higher the value is, the better it is if one periodizes the Green's function (it is not the case if one periodizes the cumulant or traces), but the calcultions are lengthened. Setting it to 500 is the best comprimised I have found.
+%
+\item["w\_discretization":] gives the number of fermionic Matsubara frequencies that compose the grid upon which one sums. The value of 2000 can reduced, as the important is to have a great resolution at low frequencies (the superfluid stiffness converges as $\propto \frac{1}{(i\omega_n)^4}$).
+%
+\item["cumulant":] specifies if the cumulant of the Green's function is to be periodized: when its value is set to $0$ and \textbf{"Periodization"} is set to $1$, the Green's function is periodized. If its value is set to $1$ and \textbf{"Periodization"} is set to $1$, the cumulant is instead periodized. To trace over the cluster Green's function in order to avoid any periodization, one has to set both \textbf{"cumulant"} and \textbf{"Periodization"} to $0$. Notice that if \textbf{"Periodization"} is set to $0$, \textbf{"cumulant"} has no effect whatsoever.
+%
+\item["Periodization":] has already been talked about quite a lot. This field takes in the values $\{0,1\}$. If $0$ is chosen, then the cluster Green's function is not periodized when computing the superfluid stiffness. Otherwise, if $1$ is chosen, the cluster Green's function is periodized, either the cumulant or the Green's function itself, depending on the value of \textbf{"cumulant"}.
+%
+\item["fout\_name":] is the string name of the file that will contain the superfluid stiffness. One can name as he/she wants. The values are appended dynamically in the file at runtime. Interrupting the program does not erase the progress of the program.
+\end{description}
+
+\subsection{Finite temperature calculation}
+\label{finite_T_calculation}
+
+To perform finite temperature calculations, no \path{params.json} input file is needed. All the important parameters to feed in are specified in the main program itself, that is the \path{FiniteTSuperstiff.jl} file.
+
+\juliascriptFT{FiniteTSuperstiff.jl}{Input parameters in FiniteTSuperstiff.jl}{1}{15}
+
+The listing \ref{FiniteTSuperstiff.jl} shows the input parameters necessary for finite temperature calculations and each of these are explained and detailed below:
+
+\begin{description}
+\item[filename\_to\_write:] sets the name of the output file produced by the main program \path{FiniteTSuperstiff.jl}
+%
+\item[t:] specifies the nearest-neighbor hopping term. It should always be set to $1.0$, as it represents the energy scale of the system.
+%
+\item[tpp:] specifies the third nearest-neighbor hopping term. It should be set to $0.0$ if one only considers the nearest-neighbor and second nearest-neighbor hopping term, as is our case here.
+%
+\item[Grid\_:] determines the resolution of the $\mathbf{k}$-space grid when the parameter \textbf{AXIS\_} is set to $"xx"$ or $"yy"$. To set it to $100$ is a sensible choice.
+%
+\item[OPT\_:] specifies the periodization scheme ("PER" or "CUM") to calculate the superfluid stiffness. If one wants to calculate the superfluid stiffness by tracing over the cluster Green's function, one has to type in "TR". If "TR" is chosen, one has to set \textbf{AXIS\_} to "$zz$".
+%
+\item[AXIS\_:] specifies the principal axis of the unit-cell along which the superfluid stiffness is to be computed. The following set holds all the permissible input parameters: $\{"xx", "yy", "zz"\}$.
+\end{description}
+
+The example given in the folder \path{examples} concern the case where only the second nearest-neighbor hopping term is changed ($t^{\prime}$). The folder structure given in this example MUST be followed for the program to succeed. Inside the folder specifying the value of $t^{\prime}$, one has to name the folder containing the raw cluster self-energies computed at different temperatures in the following way:
+
+\begin{equation}
+\label{name_folder_inside_tp}
+\text{U}\underbrace{8}_{\substack{\text{value of}\\ \text{Hubbard interaction}}}\text{m}\underbrace{5.65}_{\substack{\text{value of}\\ \text{chemical potential}}}\underbrace{\text{\_all.beta}}_{\substack{\text{contains}\\ \text{all}\\ \text{temperature calculations}}}.
+\end{equation}
+
+The main program \path{FiniteTSuperstiff.jl} is a wrapper to the program \path{Lazyskiplist}.
+
+\subsection{Modules}
+\label{sec:modules}
+
+In this subsection, I give some broad information about the modules called by the main programs, althought it is somewhat straightforward. Some useful informations are provided in case anyone were to extend the utility/scope of this program. The three following modules are necessary for \textsc{SuperStiff} to run:
+
+\begin{itemize}
+\item SuperStiff.jl
+\item PeriodizeSC.jl
+\item Stiffness.jl
+\end{itemize}
+
+The first module SuperStiff is the module that pre-compiles the two other modules, that is PeriodizeSC and Stiffness (it acts as the binder). All these files have to be stored as indicated in the \path{INSTALL} file in \path{src}.\\
+
+The second module PeriodizeSC is the module containing the lower level functions. It contains the function that build the cluster Green's function form the cluster self-energy. It contains all the different superfluid stiffness formulae. It also contains the many wrapper functions (decorators) necessary to have to integrate using cubature. It is the heaviest module of \textsc{SuperStiff}.\\
+
+The last module Stiffness calls in PeriodizeSC --- it builds on its member functions (inherits from it). This module loads the \path{params.json} file holding the instructions to the program. From the information taken from the input file, it selects the proper functions to be called from PeriodizeSC. If anyone modifies the input parameters of \path{params.json}, one has to cast his/her attention particularly on the Stiffness module.\\
+
+From this small overview and the several exemples provided in the folder \path{examples}, one should be able to take ownership of this program.
+
+
+%----------------------------------------------------------------------------------------
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+
+\nocite{*}
+\bibliographystyle{ieeetr}
+\bibliography{BibDoc} 
+%
+%\begin{lstlisting}
+%#= This is a sample of the input file params.json =#
+%1 {
+%2     "t": 1.0,
+%3     "tp": -0.3,
+%4     "tpp": 0.2,
+%5     "inplane_axis": "xx",
+%6     "path_to_files": "COEX/U8/SEvec_b500_SC_AFM/",
+%7     "data_loop": "COEX/U8/Loop_COEX.dat",
+%8     "AFM_SC_NOCOEX": 0,
+%9     "Print_mu_dop": 0,
+%10    "pattern": "SEvec*.npy",
+%11    "beta": 500,
+%12    "w_discretization": 2000,
+%13    "cumulant": 1,
+%14    "Periodization": 1,
+%15    "fout_name": "stiffness_b500_w_2000_coex_int_K_per_cum_U8.dat"
+%16 }
+%%\end{lstlisting}
+
+\end{document}

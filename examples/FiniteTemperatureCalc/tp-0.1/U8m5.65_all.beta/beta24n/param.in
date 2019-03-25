@@ -1,0 +1,43 @@
+#comments with '#'
+model          plaquetteC2vSc.model
+ITERSTART      63
+ITEREND        199
+
+#USE_UPDATES
+START_FROM_HYB
+#START_FROM_SELF
+
+parameters
+t       1.0
+tp      -0.1
+#tpp     0.20
+U       8.0m
+*
+
+# Monte Carlo parameters ---------
+CLEAN_EVERY_SWEEP   5000
+PROB                0.5
+SAMPLE_EVERY_SWEEP  50
+SEED                77429
+STORE_EVERY_SAMPLE  100
+THERMALIZATION_TIME 2.0
+MEASUREMENT_TIME    30.0
+
+
+# necessary parameters -----------------
+beta     24
+mu       5.65
+#n        1.05
+EGreen   40
+EHyb     40
+EObs     40
+weightR  0.2
+weightI  0.1
+#S        1
+#theta1   0.0
+
+# CDMFT integration Curhe parameters ----
+EPSREL   1e-3
+EPSABS   1e-4
+MAXEVAL  200000
+MINEVAL  500

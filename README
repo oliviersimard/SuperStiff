@@ -1,0 +1,59 @@
+##########
+# README #
+##########
+  
+Programmer: Olivier Simard
+Date: 19th march 2019
+
+To report bugs or for any questions, contact me using this email: olivier.simard2@usherbrooke.ca
+
+Link to development repository: https://github.com/oliviersimard
+
+#############
+DESCRIPTION:
+	 
+This simple program is written in Julia. It builds upon the cluster self-energy to compute the superfluid stiffness. The superfluid stiffness can be computed  
+by periodizing the cluster Green's function built from the cluster self-energy, by periodizing the cumulant of the cluster Green's function or by tracing
+over the cluster Green's function. For all the periodization schemes, both the superfluid stiffness in the pur superconducting state and the mixed
+superconducting-antiferromagnetic state can be computed.
+	      
+The data fed in consists in the cluster self-energy defined over a given Matsubara frequency grid and a column-separated file containing the chemical doping,
+the particle density, and the order parameter(s) amplitudes.
+The format of the input data and the format of the ouput data are exposed in the pdf file Documentation.pdf in the "doc/LatexDocumentation" folder.
+	            
+This program uses functions developed in my master's thesis
+http://hdl.handle.net/11143/15039
+		      
+############# 
+DEPENDENCIES: 
+The script is written to be compatible with Julia v0.6
+The libraries used are:
+		           
+NPZ --> The NPZ package provides support for reading and writing Numpy .npy and .npz files in Julia: https://pkg.julialang.org/detail/NPZ.html
+Glob --> Posix-compliant file name pattern matching: https://github.com/vtjnash/Glob.jl
+Cuba --> Library for multidimensional numerical integration with four independent algorithms: Vegas, Suave, Divonne, and Cuhre: https://github.com/giordano/Cuba.jl
+JSON --> JSON parsing and printing: https://github.com/JuliaIO/JSON.jl
+Cubature: hcubature --> pure-Julia multidimensional h-adaptive integration: https://github.com/stevengj/HCubature.jl
+
+When the Julia standard libraries have been installed (see INSTALL file in the "src" folder), open a Julia terminal and type in, for example,
+> Pkg.add("NPZ")
+
+The packages will be installed in the same folder as SuperStiff.
+
+#############
+RUN:
+			   
+To perform the superfluid stiffness calculations, see the pdf file Documentation.pdf in the "doc/LatexDocumentation" folder and the
+examples available in the "examples" folder. A README file is associated to every example.
+			     
+#########
+EXAMPLES:
+				        
+Examples of computations of the superfluid stiffness are shown in the "examples" directory. Details are given in
+the README files of each example folder. Some heavier examples reproduce the results shown in my thesis and the results 
+that will be published. The other results, i.e. obtained with other parameters of the Hubbard model, are produced in the exact 
+same fashion, only changing the appropriate parameters.
+#########
+
+All the program aspects, benchmarks and results in the master's thesis have been tested on a Linux machine, whether it is a remote supercomputer server
+or my personal computer. My personal computer ran on Linux Mint 18.1 during the submission process (cat /etc/os-release).

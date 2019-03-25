@@ -1,0 +1,248 @@
+Resetting modules to system default
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) openmpi/2.1.1
+
+
+Lmod is automatically replacing "intel/2016.4" with "gcc/5.4.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) openmpi/2.1.1
+
+Start task at Tue Jan 22 09:43:47 2019
+Start thermalization at Tue Jan 22 09:43:51 2019
+Start measurements at Tue Jan 22 09:45:52 2019
+Start saving simulation at Tue Jan 22 10:15:53 2019
+Task of worker finished at Tue Jan 22 10:15:53 2019
+['../../../../../../SelfConsistency.py', '--mpi', '-np', '48']
+
+
+---------- Model Definition ------------
+
+basis
+(1,0,0)
+(0,1,0)
+(0,0,1)
+
+green_function_symmetries
+1 4 3 2 : +-   # Reflection relative to a diagonal (change of sign of the Gorkov function)
+3 2 1 4 : +-   # Reflection relative to another diagonal (change of sign of the Gorkov function)
+2 3 4 1 : +-   # 90 degrees rotation (change of sign of the Gorkov function)
+5 6 7 8 1 2 3 4 : ++ # Time reversal symmetry (spin up become spin down)
+8 5 6 7 4 1 2 3 : +- # Time reversal symmetry (spin up become spin down) under a 90 degrees rotation (change of sign of the Gorkov function)
+2 1 4 3 : ++  # Left-right reflection (absent with AFM)
+4 3 2 1 : ++  # Bottom-up reflection (absent with AFM)
+
+green_functions
+G1
+G2
+G3
+G4
+
+green_matrix
+G1   0    0    0    0    0    0    0
+0    G2   0    0    0    G3   0    0
+0    0    G2   0    0    0   -G3   0
+0    0    0    G4   0    0    0    0
+0    0    0    0   -G1*  0    0    0
+0    G3   0    0    0   -G2*  0    0
+0    0   -G3   0    0    0   -G2*  0
+0    0    0    0    0    0    0   -G4*
+
+green_matrix_real
+
+
+interaction
+U  (0,0,0)  1
+
+isNambu
+True
+
+lattice
+(1,0,0)
+(0,1,0)
+
+mean-field
+
+
+one-body
+t   (1,0,0)  -1
+t   (0,1,0)  -1
+tp  (1,1,0)  -1
+tp  (1,-1,0) -1
+tpp (2,0,0)  -1
+tpp (0,2,0)  -1
+
+parameters
+t       1.0
+tp      -0.1
+U       8.0m
+
+sites
+(0,0,0)
+(1,0,0)
+(1,1,0)
+(0,1,0)
+
+superlattice
+(2,0,0)
+(0,2,0)
+
+susceptibility
+Sz Sz
+
+symmetry_generator
+2 1 4 3
+4 3 2 1
+
+---------- parameters ------------
+
+CLEAN_EVERY_SWEEP       5000
+EGreen                  40.0
+EHyb                    40.0
+EObs                    40.0
+EPSABS                  0.0001
+EPSREL                  0.001
+ITEREND                 199
+ITERSTART               63
+MAXEVAL                 200000
+MEASUREMENT_TIME        30.0
+MINEVAL                 500
+PROB                    0.5
+S                       None
+SAMPLE_EVERY_SWEEP      50
+SEED                    77429
+START_FROM_HYB          True
+START_FROM_SELF         False
+STORE_EVERY_SAMPLE      100
+THERMALIZATION_TIME     2.0
+USE_UPDATES             False
+beta                    24.5
+mu                      5.65
+n                       None
+verbose                 None
+weightI                 0.1
+weightR                 0.2
+
+----------------- STARTING CDMFT -----------------------
+
+
+must input the correct Green Matrix according to the symmetry used
+
+
+names of the representation (only for spin=Up part)
+label: 0 IrrRepr: 0  	name: k=(0,0)_Up 	[0.5 0.5 0.5 0.5]
+label: 1 IrrRepr: 1  	name: k=(0,Pi)_Up 	[ 0.5  0.5 -0.5 -0.5]
+label: 2 IrrRepr: 2  	name: k=(Pi,0)_Up 	[ 0.5 -0.5 -0.5  0.5]
+label: 3 IrrRepr: 3  	name: k=(Pi,Pi)_Up 	[ 0.5 -0.5  0.5 -0.5]
+
+#According to the symmetries defined, the green function should have this structure
+###################################
+
+green_functions
+G1
+G2
+G3
+G4
+
+green_matrix
+ G1   0    0    0    0    0    0    0   
+ 0    G2   0    0    0    G3   0    0   
+ 0    0    G2   0    0    0   -G3   0   
+ 0    0    0    G4   0    0    0    0   
+ 0    0    0    0   -G1*  0    0    0   
+ 0    G3   0    0    0   -G2*  0    0   
+ 0    0   -G3   0    0    0   -G2*  0   
+ 0    0    0    0    0    0    0   -G4* 
+
+###################################
+[[0], [1, 5], [2, 6], [3], [4], [7]]
+[{0: [0]}, {1: [1], 5: [5]}, {2: [2], 6: [6]}, {3: [3]}, {4: [4]}, {7: [7]}]
+[[1, 5], [2, 6]]
+[{0: [0]}, {1: [1], 5: [5]}, {2: [2], 6: [6]}, {3: [3]}, {4: [4]}, {7: [7]}]
+listOfFlipUpdate=  [[1, 5], [2, 6]]
+R1_Up R1_Up R1_Down R1_Down
+R1_Up R2_Up R1_Down R2_Down
+-->  R1_Up R2_Up R1_Down R2_Down
+R2_Up R1_Up R2_Down R1_Down
+R2_Up R2_Up R2_Down R2_Down
+listFlip=  [[1.0, 'R1_Up', 'R1_Down', 'R2_Up', 'R2_Down'], [1.0, 'R1_Down', 'R1_Up', 'R2_Down', 'R2_Up']]
+t [0 0 0]
+t [2 0 0]
+t [2 0 0]
+t [0 0 0]
+t [0 0 0]
+t [2 0 0]
+t [2 0 0]
+t [0 0 0]
+t [0 0 0]
+t [0 0 0]
+t [0 2 0]
+t [0 2 0]
+t [0 0 0]
+t [0 0 0]
+t [0 2 0]
+t [0 2 0]
+tp [0 0 0]
+tp [2 0 0]
+tp [2 2 0]
+tp [0 2 0]
+tp [0 0 0]
+tp [2 0 0]
+tp [2 2 0]
+tp [0 2 0]
+tp [ 0 -2  0]
+tp [ 2 -2  0]
+tp [2 0 0]
+tp [0 0 0]
+tp [ 0 -2  0]
+tp [ 2 -2  0]
+tp [2 0 0]
+tp [0 0 0]
+
+
+-------------- STARTING IMPURITY SOLVER -----------------
+
+console command: mpirun -np 48 /scratch/simoli/lazyskiplist/pySelfConsistencies/../impuritySolver/IS_MPI params64 
+
+warning, overwriting green64.dat
+SzSz
+warning, overwriting chi64.dat
+t [0 0 0]
+t [2 0 0]
+t [2 0 0]
+t [0 0 0]
+t [0 0 0]
+t [2 0 0]
+t [2 0 0]
+t [0 0 0]
+t [0 0 0]
+t [0 0 0]
+t [0 2 0]
+t [0 2 0]
+t [0 0 0]
+t [0 0 0]
+t [0 2 0]
+t [0 2 0]
+tp [0 0 0]
+tp [2 0 0]
+tp [2 2 0]
+tp [0 2 0]
+tp [0 0 0]
+tp [2 0 0]
+tp [2 2 0]
+tp [0 2 0]
+tp [ 0 -2  0]
+tp [ 2 -2  0]
+tp [2 0 0]
+tp [0 0 0]
+tp [ 0 -2  0]
+tp [ 2 -2  0]
+tp [2 0 0]
+tp [0 0 0]
+
+Start self-consistency integral at Tue Jan 22 10:15:54 2019
+n=0	max error: 1.276e-04 # eval 16965 , ok = True , time: 0.2377 sec n=1	max error: 1.627e-04 # eval 8515 , ok = True , time: 0.1196 sec n=2	max error: 9.399e-05 # eval 5265 , ok = True , time: 0.0763 sec n=3	max error: 6.657e-05 # eval 4095 , ok = True , time: 0.0607 sec n=4	max error: 1.272e-04 # eval 3315 , ok = True , time: 0.0492 sec n=5	max error: 1.189e-04 # eval 2145 , ok = True , time: 0.0333 sec n=6	max error: 5.447e-05 # eval 2015 , ok = True , time: 0.0308 sec n=7	max error: 8.433e-05 # eval 1885 , ok = True , time: 0.0288 sec n=8	max error: 1.790e-04 # eval 1625 , ok = True , time: 0.0249 sec n=9	max error: 9.220e-05 # eval 1755 , ok = True , time: 0.0268 sec n=10	max error: 7.550e-05 # eval 1755 , ok = True , time: 0.0268 sec n=11	max error: 8.673e-05 # eval 1625 , ok = True , time: 0.0247 sec n=12	max error: 9.623e-05 # eval 1495 , ok = True , time: 0.0227 sec n=13	max error: 8.317e-05 # eval 1495 , ok = True , time: 0.0228 sec n=14	max error: 9.048e-05 # eval 1365 , ok = True , time: 0.0209 sec n=15	max error: 9.939e-05 # eval 1235 , ok = True , time: 0.0188 sec n=16	max error: 8.731e-05 # eval 1235 , ok = True , time: 0.0188 sec n=17	max error: 7.844e-05 # eval 1235 , ok = True , time: 0.0189 sec n=18	max error: 9.133e-05 # eval 1105 , ok = True , time: 0.0169 sec n=19	max error: 8.085e-05 # eval 1105 , ok = True , time: 0.0169 sec n=20	max error: 7.348e-05 # eval 1105 , ok = True , time: 0.0169 sec n=21	max error: 9.781e-05 # eval 975 , ok = True , time: 0.0151 sec n=22	max error: 8.956e-05 # eval 975 , ok = True , time: 0.0150 sec n=23	max error: 7.963e-05 # eval 975 , ok = True , time: 0.0151 sec n=24	max error: 7.065e-05 # eval 975 , ok = True , time: 0.0150 sec n=25	max error: 6.519e-05 # eval 975 , ok = True , time: 0.0149 sec n=26	max error: 5.879e-05 # eval 975 , ok = True , time: 0.0149 sec n=27	max error: 5.399e-05 # eval 975 , ok = True , time: 0.0149 sec n=28	max error: 5.015e-05 # eval 975 , ok = True , time: 0.0149 sec n=29	max error: 4.531e-05 # eval 975 , ok = True , time: 0.0149 sec n=30	max error: 1.099e-04 # eval 715 , ok = True , time: 0.0111 sec n=31	max error: 1.006e-04 # eval 715 , ok = True , time: 0.0111 sec n=32	max error: 9.347e-05 # eval 715 , ok = True , time: 0.0111 sec n=33	max error: 8.495e-05 # eval 715 , ok = True , time: 0.0111 sec n=34	max error: 7.791e-05 # eval 715 , ok = True , time: 0.0111 sec n=35	max error: 5.205e-05 # eval 715 , ok = True , time: 0.0111 sec n=36	max error: 4.624e-05 # eval 715 , ok = True , time: 0.0111 sec n=37	max error: 4.297e-05 # eval 715 , ok = True , time: 0.0111 sec n=38	max error: 3.871e-05 # eval 715 , ok = True , time: 0.0111 sec n=39	max error: 3.561e-05 # eval 715 , ok = True , time: 0.0111 sec n=40	max error: 3.446e-05 # eval 715 , ok = True , time: 0.0111 sec n=41	max error: 3.025e-05 # eval 715 , ok = True , time: 0.0111 sec n=42	max error: 2.756e-05 # eval 715 , ok = True , time: 0.0112 sec n=43	max error: 2.150e-05 # eval 585 , ok = True , time: 0.0092 sec n=44	max error: 1.981e-05 # eval 585 , ok = True , time: 0.0092 sec n=45	max error: 1.867e-05 # eval 585 , ok = True , time: 0.0093 sec n=46	max error: 1.772e-05 # eval 585 , ok = True , time: 0.0093 sec n=47	max error: 1.626e-05 # eval 585 , ok = True , time: 0.0092 sec n=48	max error: 1.405e-05 # eval 585 , ok = True , time: 0.0093 sec n=49	max error: 1.335e-05 # eval 585 , ok = True , time: 0.0092 sec n=50	max error: 1.263e-05 # eval 585 , ok = True , time: 0.0092 sec n=51	max error: 1.194e-05 # eval 585 , ok = True , time: 0.0092 sec n=52	max error: 1.021e-05 # eval 585 , ok = True , time: 0.0092 sec n=53	max error: 9.111e-06 # eval 585 , ok = True , time: 0.0092 sec n=54	max error: 9.192e-06 # eval 585 , ok = True , time: 0.0092 sec n=55	max error: 7.436e-06 # eval 585 , ok = True , time: 0.0092 sec n=56	max error: 7.923e-06 # eval 585 , ok = True , time: 0.0092 sec n=57	max error: 6.792e-06 # eval 585 , ok = True , time: 0.0092 sec n=58	max error: 6.256e-06 # eval 585 , ok = True , time: 0.0092 sec n=59	max error: 5.951e-06 # eval 585 , ok = True , time: 0.0092 sec n=60	max error: 4.547e-06 # eval 585 , ok = True , time: 0.0092 sec n=61	max error: 4.908e-06 # eval 585 , ok = True , time: 0.0092 sec n=62	max error: 3.717e-06 # eval 585 , ok = True , time: 0.0092 sec n=63	max error: 3.301e-06 # eval 585 , ok = True , time: 0.0092 sec n=64	max error: 4.240e-06 # eval 585 , ok = True , time: 0.0092 sec n=65	max error: 2.923e-06 # eval 585 , ok = True , time: 0.0092 sec n=66	max error: 3.262e-06 # eval 585 , ok = True , time: 0.0092 sec n=67	max error: 3.098e-06 # eval 585 , ok = True , time: 0.0092 sec n=68	max error: 2.232e-06 # eval 585 , ok = True , time: 0.0092 sec n=69	max error: 2.547e-06 # eval 585 , ok = True , time: 0.0092 sec n=70	max error: 1.468e-06 # eval 585 , ok = True , time: 0.0092 sec n=71	max error: 2.330e-06 # eval 585 , ok = True , time: 0.0092 sec n=72	max error: 1.932e-06 # eval 585 , ok = True , time: 0.0092 sec n=73	max error: 1.976e-06 # eval 585 , ok = True , time: 0.0093 sec n=74	max error: 1.080e-06 # eval 585 , ok = True , time: 0.0092 sec n=75	max error: 1.180e-06 # eval 585 , ok = True , time: 0.0092 sec n=76	max error: 1.066e-06 # eval 585 , ok = True , time: 0.0092 sec n=77	max error: 7.902e-07 # eval 585 , ok = True , time: 0.0093 sec n=78	max error: 8.874e-07 # eval 585 , ok = True , time: 0.0092 sec n=79	max error: 4.532e-07 # eval 585 , ok = True , time: 0.0092 sec n=80	max error: 4.463e-07 # eval 585 , ok = True , time: 0.0092 sec n=81	max error: 4.498e-07 # eval 585 , ok = True , time: 0.0092 sec n=82	max error: 3.052e-07 # eval 585 , ok = True , time: 0.0092 sec n=83	max error: 2.320e-07 # eval 585 , ok = True , time: 0.0092 sec n=84	max error: 5.092e-07 # eval 585 , ok = True , time: 0.0092 sec n=85	max error: 2.245e-07 # eval 585 , ok = True , time: 0.0092 sec n=86	max error: 6.296e-07 # eval 585 , ok = True , time: 0.0092 sec n=87	max error: 2.546e-07 # eval 585 , ok = True , time: 0.0092 sec n=88	max error: 4.607e-07 # eval 585 , ok = True , time: 0.0092 sec n=89	max error: 2.783e-07 # eval 585 , ok = True , time: 0.0092 sec n=90	max error: 3.448e-07 # eval 585 , ok = True , time: 0.0092 sec n=91	max error: 3.227e-07 # eval 585 , ok = True , time: 0.0092 sec n=92	max error: 2.264e-05 # eval 585 , ok = True , time: 0.0090 sec n=93	max error: 1.995e-07 # eval 585 , ok = True , time: 0.0092 sec n=94	max error: 1.953e-07 # eval 585 , ok = True , time: 0.0092 sec n=95	max error: 1.651e-05 # eval 585 , ok = True , time: 0.0091 sec n=96	max error: 1.949e-07 # eval 585 , ok = True , time: 0.0092 sec n=97	max error: 1.481e-05 # eval 585 , ok = True , time: 0.0090 sec n=98	max error: 1.993e-05 # eval 585 , ok = True , time: 0.0090 sec n=99	max error: 2.004e-05 # eval 585 , ok = True , time: 0.0090 sec n=100	max error: 1.870e-05 # eval 585 , ok = True , time: 0.0091 sec n=101	max error: 1.796e-07 # eval 585 , ok = True , time: 0.0092 sec n=102	max error: 1.859e-05 # eval 585 , ok = True , time: 0.0090 sec n=103	max error: 2.279e-07 # eval 585 , ok = True , time: 0.0092 sec n=104	max error: 3.509e-07 # eval 585 , ok = True , time: 0.0092 sec n=105	max error: 1.880e-05 # eval 585 , ok = True , time: 0.0091 sec n=106	max error: 1.666e-05 # eval 585 , ok = True , time: 0.0091 sec n=107	max error: 1.768e-05 # eval 585 , ok = True , time: 0.0091 sec n=108	max error: 1.606e-05 # eval 585 , ok = True , time: 0.0091 sec n=109	max error: 1.703e-05 # eval 585 , ok = True , time: 0.0091 sec n=110	max error: 1.529e-05 # eval 585 , ok = True , time: 0.0091 sec n=111	max error: 1.594e-05 # eval 585 , ok = True , time: 0.0092 sec n=112	max error: 1.190e-05 # eval 585 , ok = True , time: 0.0091 sec n=113	max error: 1.568e-05 # eval 585 , ok = True , time: 0.0091 sec n=114	max error: 1.016e-05 # eval 585 , ok = True , time: 0.0091 sec n=115	max error: 1.319e-05 # eval 585 , ok = True , time: 0.0091 sec n=116	max error: 1.050e-05 # eval 585 , ok = True , time: 0.0091 sec n=117	max error: 1.442e-05 # eval 585 , ok = True , time: 0.0091 sec n=118	max error: 1.475e-05 # eval 585 , ok = True , time: 0.0091 sec n=119	max error: 7.953e-06 # eval 585 , ok = True , time: 0.0091 sec n=120	max error: 9.045e-06 # eval 585 , ok = True , time: 0.0091 sec n=121	max error: 5.235e-07 # eval 585 , ok = True , time: 0.0092 sec n=122	max error: 6.288e-07 # eval 585 , ok = True , time: 0.0092 sec n=123	max error: 9.459e-06 # eval 585 , ok = True , time: 0.0091 sec n=124	max error: 4.239e-07 # eval 585 , ok = True , time: 0.0092 sec n=125	max error: 4.362e-07 # eval 585 , ok = True , time: 0.0092 sec n=126	max error: 5.512e-09 # eval 585 , ok = True , time: 0.0092 sec n=127	max error: 4.803e-07 # eval 585 , ok = True , time: 0.0092 sec n=128	max error: 4.435e-07 # eval 585 , ok = True , time: 0.0092 sec n=129	max error: 1.124e-05 # eval 585 , ok = True , time: 0.0091 sec n=130	max error: 8.468e-06 # eval 585 , ok = True , time: 0.0091 sec n=131	max error: 9.997e-09 # eval 585 , ok = True , time: 0.0092 sec n=132	max error: 1.066e-05 # eval 585 , ok = True , time: 0.0091 sec n=133	max error: 4.716e-06 # eval 585 , ok = True , time: 0.0091 sec n=134	max error: 4.474e-07 # eval 585 , ok = True , time: 0.0092 sec n=135	max error: 4.769e-07 # eval 585 , ok = True , time: 0.0092 sec n=136	max error: 7.304e-06 # eval 585 , ok = True , time: 0.0091 sec n=137	max error: 4.756e-07 # eval 585 , ok = True , time: 0.0092 sec n=138	max error: 7.719e-09 # eval 585 , ok = True , time: 0.0092 sec n=139	max error: 4.114e-09 # eval 585 , ok = True , time: 0.0092 sec n=140	max error: 6.203e-09 # eval 585 , ok = True , time: 0.0092 sec n=141	max error: 3.321e-07 # eval 585 , ok = True , time: 0.0092 sec n=142	max error: 6.171e-06 # eval 585 , ok = True , time: 0.0090 sec n=143	max error: 4.299e-09 # eval 585 , ok = True , time: 0.0093 sec n=144	max error: 4.176e-09 # eval 585 , ok = True , time: 0.0093 sec n=145	max error: 3.217e-07 # eval 585 , ok = True , time: 0.0092 sec n=146	max error: 3.617e-07 # eval 585 , ok = True , time: 0.0092 sec n=147	max error: 3.453e-07 # eval 585 , ok = True , time: 0.0092 sec n=148	max error: 4.129e-07 # eval 585 , ok = True , time: 0.0092 sec n=149	max error: 3.390e-07 # eval 585 , ok = True , time: 0.0092 sec n=150	max error: 3.798e-07 # eval 585 , ok = True , time: 0.0092 sec n=151	max error: 3.690e-07 # eval 585 , ok = True , time: 0.0092 sec n=152	max error: 3.708e-07 # eval 585 , ok = True , time: 0.0092 sec n=153	max error: 5.751e-09 # eval 585 , ok = True , time: 0.0093 sec n=154	max error: 3.613e-09 # eval 585 , ok = True , time: 0.0092 sec n=155	max error: 2.726e-07 # eval 585 , ok = True , time: 0.0092 secStart task at Tue Jan 22 10:16:05 2019
+Start thermalization at Tue Jan 22 10:16:09 2019
+Start measurements at Tue Jan 22 10:18:10 2019

@@ -1,0 +1,21 @@
+############
+Example
+############
+
+
+This example is devised to show an example computing the superfluid stiffness at finite temperature perpendicular to the copper-oxyde plane, with periodizing the Green's function. 
+The mixed state case (AF+SC) is shown. The input parameters are the self-energy arrays (vector of matrices) obtained form CTQMC impurity solver. For the program to properly run, 
+the folder hierarchy is very important to maintain (see Documentation.pdf).
+
+The input item:
+
+- tp-0.1/ (contains the self-energy arrays for the different dopings for tp=-0.1t and U=8t)
+
+The output items:
+
+- PER_periodized_zz_expected.dat (file containing, from left to right, the chemical potential, the particle density and the superfluid stiffness periodizing the cumulant)
+
+The results are written during runtime. Anyone can kill the program by pressing CTRL+c (Linux), or any corresponding key. It is important to maintain the folder structure
+shown in this example. Otherwise, the main program will crash.
+
+For further informations and explainations, see Documentation.pdf in the "doc/LatexDocumentation" folder.

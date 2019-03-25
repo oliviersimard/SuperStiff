@@ -1,0 +1,16 @@
+{
+    "t": 1.0,
+    "tp": -0.3,
+    "tpp": 0.2,
+    "inplane_axis": "xx",
+    "path_to_files": "NOCOEX/U8/SEvec_b500_SC/",
+    "data_loop": "NOCOEX/U8/Loop_NOCOEX.dat",
+    "AFM_SC_NOCOEX": 0,
+    "Print_mu_dop": 0,
+    "pattern": "SEvec*.npy",
+    "beta": 500,
+    "w_discretization": 2000,
+    "cumulant": 0,
+    "Periodization": 1,
+    "fout_name": "stiffness_b500_w_2000_nocoex_int_K_per_tperp_U8.dat"
+}
