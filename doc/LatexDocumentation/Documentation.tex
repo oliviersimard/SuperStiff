@@ -237,7 +237,7 @@ The example given in the folder \path{examples} concern the case where only the 
 \text{U}\underbrace{8}_{\substack{\text{value of}\\ \text{Hubbard interaction}}}\text{m}\underbrace{5.65}_{\substack{\text{value of}\\ \text{chemical potential}}}\underbrace{\text{\_all.beta}}_{\substack{\text{contains}\\ \text{all}\\ \text{temperature calculations}}}.
 \end{equation}
 
-The main program \path{FiniteTSuperstiff.jl} is a wrapper to the program \path{Lazyskiplist}.
+If for a given temperature the cluster self-energies don't show any anomalous components, the folder containing the self-energies at each iteration MUST end by "n". This way, these folders are ignored by the program. The main program \path{FiniteTSuperstiff.jl} is a wrapper to the program \path{Lazyskiplist}.
 
 \subsection{Modules}
 \label{sec:modules}
