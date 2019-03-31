@@ -15,6 +15,12 @@ The output items:
 
 - PER_periodized_zz_expected.dat (file containing, from left to right, the chemical potential, the particle density and the superfluid stiffness periodizing the cumulant)
 
+In a Julia terminal in which the modules of SuperStiff have been loaded, run
+
+> include("/path/to/file/FiniteTSuperstiff.jl")
+
+to load the main program computing c-axis superfluid stiffness.
+
 The results are written during runtime. Anyone can kill the program by pressing CTRL+c (Linux), or any corresponding key. It is important to maintain the folder structure
 shown in this example. Otherwise, the main program will crash.
 

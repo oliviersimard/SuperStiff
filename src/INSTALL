@@ -5,7 +5,21 @@ INSTALL
 
 To install the Julia standard libraries (Base), follow the instructions displayed in the following link: https://julialang.org/downloads/platform.html
 
-Once installed, move the three modules in "src" in the proper directory using the following command (example for Julia v6.0): 
+The easiest and prefered way to install the three modules located in the folder "src" is to open a Julia terminal
+
+$ julia
+
+and type in a command to fetch the module SuperStiff.jl (the example is given when the working directory is "src")
+
+> include("SuperStiff.jl")
+
+The latter command pre-compiles the modules of SuperStiff and loads all the functions setting SuperStiff to be the global scope.
+If the file SuperStiff.jl is not located in the "src" file, just specify the full path to that file from the working directory.
+
+##############################
+Other installation procedure: 
+
+Another way to install SuperStiff is to move the three modules in "src" in the proper directory using the following command (example for Julia v6.0): 
 $ mkdir -p $HOME/.julia/v0.6/SuperStiff && mv PeriodizeSC.jl  Stiffness.jl  SuperStiff.jl $HOME/.julia/v0.6/SuperStiff
 
 Of course, run the above command in the local "src" folder.
@@ -16,5 +30,22 @@ $ julia
 Afterwards, type inside the julia terminal the following line:
 > using SuperStiff
 
-This will compile the program. In order for the program to compile, you must install the programs listed in README. 
+This will compile the program. In order for the program to compile, you must install the dependencies listed below.
+
+#############
+DEPENDENCIES:
+The script is written to be compatible with Julia v0.6
+The libraries used are:
+
+NPZ --> The NPZ package provides support for reading and writing Numpy .npy and .npz files in Julia: https://pkg.julialang.org/detail/NPZ.html
+Glob --> Posix-compliant file name pattern matching: https://github.com/vtjnash/Glob.jl
+Cuba --> Library for multidimensional numerical integration with four independent algorithms: Vegas, Suave, Divonne, and Cuhre: https://github.com/giordano/Cuba.jl
+JSON --> JSON parsing and printing: https://github.com/JuliaIO/JSON.jl
+Cubature: hcubature --> pure-Julia multidimensional h-adaptive integration: https://github.com/stevengj/HCubature.jl
+
+When the Julia standard libraries have been installed (see INSTALL file in the "src" folder), open a Julia terminal and type in, for example,
+> Pkg.add("NPZ")
+
+The packages will be installed in the same folder as SuperStiff.
+
 For any further information, please check the Julia documentation website: https://docs.julialang.org/en/v0.6/
