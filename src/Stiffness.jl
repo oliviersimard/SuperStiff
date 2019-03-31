@@ -170,8 +170,7 @@ function calc_stiff_funct_COEX(super_data_M_el::Float64, modelvec::PeriodizeSC.M
         if cumulant == 0
             cond = abs(super_data_M_el) > M_tol
             if cond
-                #list_stiff = PeriodizeSC.calcintegral_RBZ(modelvec,PeriodizeSC.make_stiffness_kintegrand_test)  
-                list_stiff = PeriodizeSC.calcintegral_RBZ(modelvec,PeriodizeSC.make_stiffness_kintegrand_all_terms)
+                list_stiff = PeriodizeSC.calcintegral_RBZ(modelvec,PeriodizeSC.make_stiffness_kintegrand_test)
             else
                 list_stiff = PeriodizeSC.calcintegral_BZ(modelvec,PeriodizeSC.make_stiffness_kintegrand_SC)
             end
