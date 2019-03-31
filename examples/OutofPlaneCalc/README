@@ -11,7 +11,7 @@ particle density and the order parameter amplitudes have to be laid out in a col
 The input items:
 
 - Loop_COEX.dat (chemical potential, order parameter amplitudes)
-- SEvec_b500_SC_AFM/ (contains the self-energy arrays for the different dopings)
+- SEvec_b500_SC_AFM/ (contains sample of self-energy arrays for the different dopings)
 
 The input items must be put in the same folder as the params.json and the main *.jl file.
 
@@ -20,6 +20,11 @@ The output items, depending on the subfolders:
 - stiffness_b500_w_2000_coex_int_K_per_tperp_U8.dat (file containing, from left to right, the chemical potential, the particle density and the superfluid stiffness using Green's function periodization)
 - stiffness_b500_w_2000_coex_int_K_per_cum_tperp_U8.dat (file containing, from left to right, the chemical potential, the particle density and the superfluid stiffness using cumulant periodization)
 
+In a Julia terminal in which the modules of SuperStiff have been loaded, run 
+
+> include("/path/to/file/OutofPlaneSuperStiff.jl")
+
+to load the main program computing c-axis superfluid stiffness.
 The results are written during runtime. Anyone can kill the program by pressing CTRL+c (Linux), or any corresponding key.
 
 For further informations and explainations, see Documentation.pdf in the "doc/LatexDocumentation" folder.
